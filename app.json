@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "react_native_notificacoes",
-    "slug": "react_native_notificacoes",
+    "name": "Notificações",
+    "slug": "notificacoes",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,10 +20,12 @@
       "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.leo.vales.react_native_notificacoes"
     },
     "web": {
       "favicon": "./assets/favicon.png"

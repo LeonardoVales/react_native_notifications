@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, Button, Platform, Alert } from 'react-native';
+import { StyleSheet, Text, View, Button, Platform, Alert, TextInput } from 'react-native';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -18,8 +18,16 @@ export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
 
+  const [token, setToken] = useState('');
+
   const notificationListener = useRef();
   const responseListener = useRef();
+
+  async function getToken() {
+    const response = await Notifications.getExpoPushTokenAsync();
+    
+    setToken(response.data);    
+  }
 
   useEffect( () => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
@@ -45,17 +53,24 @@ export default function App() {
           alignItems: 'center',
           justifyContent: 'space-around',
         }}>
-          <Text style={{alignItems: 'center'}}>Token do dispositivo: {expoPushToken}</Text>
+          <Text selectable={true} style={{alignItems: 'center'}}>Token do dispositivo: {expoPushToken}</Text>
           <View style={{ alignItems: 'center', justifyContent: 'center'}}>
             <Text>Título: {notification && notification.request.content.title}</Text>
             <Text>Mensagem: {notification && notification.request.content.body} </Text>
             <Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
           </View>
-
+          
           <Button title="Enviar notificação" 
           onPress={ async () => {
             await schedulePushNotification();
           } }/>
+
+          <Button title="Get Token" onPress={ async () => {
+            await getToken();
+          }} />
+
+      <Text selectable={true} style={{alignItems: 'center'}}>{token}</Text>
+    
       </View>
   );
 }
@@ -79,12 +94,17 @@ async function registerForPushNotificationsAsync() {
       let finalStatus = existingStatus;
 
       if (existingStatus !== 'granted') {
-        Alert.alert('Falha ao pegar o token do dispositivo');
+        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        finalStatus = status;
+      }
+
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
         return;
       }
 
       token = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log(token);
+      // console.log(token);
     } else {
       Alert.alert('Você não está em um dispositivo físico');
     }

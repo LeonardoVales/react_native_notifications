@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "755274360355",
+    "project_id": "notifications-75e1d",
+    "storage_bucket": "notifications-75e1d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755274360355:android:a77ecc1780e6a815d03396",
+        "android_client_info": {
+          "package_name": "com.leo.vales.react_native_notificacoes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "755274360355-4fuc31d7l2vq0laq1hurr8uuqgpv3vm5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNjAtSbAcMh0g-UxeM4QkO-kTzJil8gXs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "755274360355-4fuc31d7l2vq0laq1hurr8uuqgpv3vm5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
